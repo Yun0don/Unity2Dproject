@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4744244a200e79743a81853a36123ad9, type: 3}
+  m_Name: Kngiht
+  m_EditorClassIdentifier: 
+  championName: "\uAE30\uC0AC"
+  championIcon: {fileID: 21300000, guid: 9e8d6379ad24b7a41a1f600fbc79bde6, type: 3}
+  attackPower: 21
+  attackSpeed: 0.67
+  attackRange: 0.37
+  defense: 60
+  maxhealth: 200
+  health: 200
+  movementSpeed: 2.5
+  basicSkill:
+    skillType: 0
+    cooldown: 4.2
+    isUsed: 0
+    icon: {fileID: 21300000, guid: b64c910eaadb6944c89b863a71ab52ad, type: 3}
+    description: "\uC801 \uD558\uB098\uB97C \uC77C\uC815 \uC2DC\uAC04\uB3D9\uC548
+      \uB3C4\uBC1C\uD558\uC5EC \uD574\uB2F9 \uC801\uC758 \uACF5\uACA9 \uB300\uC0C1\uC744
+      \uAC15\uC81C\uB85C \uC790\uC2E0\uC73C\uB85C \uB9CC\uB4ED\uB2C8\uB2E4. \uBC29\uC5B4\uB825\uC774
+      \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
+    ultset: 0
+  ultimateSkill:
+    skillType: 1
+    cooldown: 0
+    isUsed: 0
+    icon: {fileID: 21300000, guid: 1b136d5c6c594674f853b5d01cab7346, type: 3}
+    description: "\uC77C\uC815 \uC2DC\uAC04\uB3D9\uC548 \uC544\uAD70 \uBAA8\uB450\uC758
+      \uBC29\uC5B4\uB825\uC744 \uD06C\uAC8C \uC0C1\uC2B9 \uC2DC\uD0B5\uB2C8\uB2E4."
+    ultset: 1

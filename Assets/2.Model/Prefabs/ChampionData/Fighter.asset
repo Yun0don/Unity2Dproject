@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4744244a200e79743a81853a36123ad9, type: 3}
+  m_Name: Fighter
+  m_EditorClassIdentifier: 
+  championName: "\uACA9\uD22C\uAC00"
+  championIcon: {fileID: 21300000, guid: ed933545b1b695d4ab8d4168120e7749, type: 3}
+  attackPower: 10
+  attackSpeed: 1.18
+  attackRange: 0.35
+  defense: 40
+  maxhealth: 190
+  health: 190
+  movementSpeed: 3.5
+  basicSkill:
+    skillType: 0
+    cooldown: 2.7
+    isUsed: 0
+    icon: {fileID: 21300000, guid: 0f28e77b9dc637d4aad518783b0ec576, type: 3}
+    description: "\uC801 \uD558\uB098\uB97C \uBC1C\uCC28\uAE30\uB85C \uAC15\uD558\uAC8C
+      \uD0C0\uACA9\uD558\uC5EC \uD589\uB3D9 \uBD88\uB294 \uC0C1\uD0DC\uB85C \uB9CC\uB4E0
+      \uB4A4 \uCD94\uACA9\uD574 \uACF5\uACA9\uD569\uB2C8\uB2E4."
+    ultset: 0
+  ultimateSkill:
+    skillType: 1
+    cooldown: 0
+    isUsed: 0
+    icon: {fileID: 21300000, guid: d837d34041ab0cf4fb2c54f0192ad519, type: 3}
+    description: "\uC8FC\uBCC0 \uC77C\uC815 \uBC94\uC704 \uC801\uB4E4\uC744 \uBAA8\uB450
+      \uACF5\uC911\uC73C\uB85C \uB744\uC6CC\uC62C\uB9BD\uB2C8\uB2E4."
+    ultset: 1

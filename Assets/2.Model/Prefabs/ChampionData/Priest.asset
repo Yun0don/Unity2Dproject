@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4744244a200e79743a81853a36123ad9, type: 3}
+  m_Name: Priest
+  m_EditorClassIdentifier: 
+  championName: "\uC131\uC9C1\uC790"
+  championIcon: {fileID: 21300000, guid: 76b1ab9b50b9b17479d92751731fd516, type: 3}
+  attackPower: 30
+  attackSpeed: 0.69
+  attackRange: 3
+  defense: 3
+  maxhealth: 65
+  health: 65
+  movementSpeed: 1.5
+  basicSkill:
+    skillType: 0
+    cooldown: 0
+    isUsed: 0
+    icon: {fileID: 21300000, guid: 661218a5cf8d680459d4536584e94327, type: 3}
+    description: "\uC544\uAD70 \uD558\uB098\uC5D0\uAC8C \uACF5\uACA9 \uC18D\uB3C4
+      \uC99D\uAC00 \uD6A8\uACFC\uAC00 \uC788\uB294 \uBCF4\uD638\uB9C9\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4.  "
+    ultset: 0
+  ultimateSkill:
+    skillType: 1
+    cooldown: 0
+    isUsed: 0
+    icon: {fileID: 21300000, guid: ba0c0d93ee2426244822c05722407b23, type: 3}
+    description: "\uC8FC\uBCC0 \uC77C\uC815 \uBC94\uC704\uC5D0 \uC9C0\uC18D\uC801\uC73C\uB85C
+      \uCCB4\uB825\uC744 \uD68C\uBCF5\uC2DC\uD0A4\uB294 \uC601\uC5ED\uC744 \uC0DD\uC131\uD569\uB2C8\uB2E4. "
+    ultset: 1

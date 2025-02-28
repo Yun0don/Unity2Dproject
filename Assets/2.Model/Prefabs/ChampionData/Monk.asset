@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4744244a200e79743a81853a36123ad9, type: 3}
+  m_Name: Monk
+  m_EditorClassIdentifier: 
+  championName: "\uBABD\uD06C"
+  championIcon: {fileID: 21300000, guid: 726bc6b8e6a3e6f448894745df760396, type: 3}
+  attackPower: 20
+  attackSpeed: 0.71
+  attackRange: 0.35
+  defense: 40
+  maxhealth: 210
+  health: 210
+  movementSpeed: 2.5
+  basicSkill:
+    skillType: 0
+    cooldown: 5.4
+    isUsed: 0
+    icon: {fileID: 21300000, guid: 62938e7807a18d145ace621c1a8db9d4, type: 3}
+    description: "\uC790\uC2E0 \uC8FC\uBCC0 \uC544\uAD70 \uC804\uCCB4\uC758 \uCCB4\uB825\uC744
+      \uC77C\uC815\uB7C9 \uD68C\uBCF5\uD569\uB2C8\uB2E4.  "
+    ultset: 0
+  ultimateSkill:
+    skillType: 1
+    cooldown: 0
+    isUsed: 0
+    icon: {fileID: 21300000, guid: bfc0891fac012614e85cabee25888d36, type: 3}
+    description: "\uC8FC\uBCC0 \uC77C\uC815 \uBC94\uC704 \uC544\uAD70\uC5D0\uAC8C
+      \uC774\uB3D9 \uC18D\uB3C4 \uC99D\uAC00 \uD6A8\uACFC\uAC00 \uC788\uB294 \uBCF4\uD638\uB9C9\uC744
+      \uBD80\uC5EC\uD569\uB2C8\uB2E4. "
+    ultset: 1

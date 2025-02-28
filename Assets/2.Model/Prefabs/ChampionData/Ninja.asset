@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4744244a200e79743a81853a36123ad9, type: 3}
+  m_Name: Ninja
+  m_EditorClassIdentifier: 
+  championName: "\uB2CC\uC790"
+  championIcon: {fileID: 21300000, guid: 8a388ff60a4dcdd419b46444bce70e15, type: 3}
+  attackPower: 25
+  attackSpeed: 0.95
+  attackRange: 0.4
+  defense: 10
+  maxhealth: 120
+  health: 120
+  movementSpeed: 4
+  basicSkill:
+    skillType: 0
+    cooldown: 3
+    isUsed: 0
+    icon: {fileID: 21300000, guid: a1d89a9365c42ba4f81b829726eef651, type: 3}
+    description: "\uC801 \uD558\uB098\uC5D0\uAC8C \uC21C\uAC04\uC774\uB3D9\uC73C\uB85C
+      \uC811\uADFC\uD558\uC5EC \uCD9C\uD608 \uD6A8\uACFC\uAC00 \uC788\uB294 \uACF5\uACA9\uC744
+      \uAC00\uD569\uB2C8\uB2E4. "
+    ultset: 0
+  ultimateSkill:
+    skillType: 1
+    cooldown: 0
+    isUsed: 0
+    icon: {fileID: 21300000, guid: fac8894b14ee21e41b4ef53b3beb7c5a, type: 3}
+    description: "\uC9C0\uC18D\uC801\uC73C\uB85C \uCCB4\uB825\uC774 \uC18C\uBAA8\uB418\uB294
+      \uBD84\uC2E0\uC744 \uC18C\uD658\uD569\uB2C8\uB2E4. "
+    ultset: 1

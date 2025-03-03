@@ -1,24 +1,29 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 public class BattleAI : MonoBehaviour
 {
     public ChampionManager championManager;
     public GameObject target;
+    private SpriteRenderer spriteRenderer;
 
     private float attackCooldown;
-    private bool isMoving = false; // ÀÌµ¿ »óÅÂ ¿©ºÎ (¾Ö´Ï¸ŞÀÌ¼Ç Á¦¾î¿ë)
-    private Coroutine attackCoroutine; // °ø°İ ÄÚ·çÆ¾
+    private bool isMoving = false; // ì´ë™ ìƒíƒœ ì—¬ë¶€ (ì• ë‹ˆë©”ì´ì…˜ ì œì–´ìš©)
+    private Coroutine attackCoroutine; // ê³µê²© ì½”ë£¨í‹´
+    private Vector2 lastPosition; //  ì´ì „ í”„ë ˆì„ ìœ„ì¹˜ ì €ì¥
 
     private void Start()
     {
         attackCooldown = 1f / championManager.championData.attackSpeed;
-        StartAttackRoutine(); // °ø°İ ·çÆ¾ ÀÚµ¿ ½ÃÀÛ
+        StartAttackRoutine(); // ê³µê²© ë£¨í‹´ ìë™ ì‹œì‘
+
+        spriteRenderer = GetComponent<SpriteRenderer>(); // ìŠ¤í”„ë¼ì´íŠ¸ ë Œë”ëŸ¬ ê°€ì ¸ì˜¤ê¸°
+        lastPosition = transform.position; // ì´ˆê¸° ìœ„ì¹˜ ì €ì¥
     }
 
     private void Update()
     {
-        // ¸Å ÇÁ·¹ÀÓ¸¶´Ù Å¸°Ù °»½Å: ÀÌ¹Ì Å¸°ÙÀÌ ÀÖ¾îµµ ÁÖº¯¿¡¼­ ´õ °¡±î¿î ÀûÀÌ ÀÖ´ÂÁö È®ÀÎ
+        // ë§¤ í”„ë ˆì„ë§ˆë‹¤ íƒ€ê²Ÿ ê°±ì‹ : ì´ë¯¸ íƒ€ê²Ÿì´ ìˆì–´ë„ ì£¼ë³€ì—ì„œ ë” ê°€ê¹Œìš´ ì ì´ ìˆëŠ”ì§€ í™•ì¸
         SetTarget();
 
         if (target == null || !target.activeInHierarchy)
@@ -29,23 +34,57 @@ public class BattleAI : MonoBehaviour
         float distance = Vector2.Distance(transform.position, target.transform.position);
         float attackRange = championManager.championData.attackRange;
 
-        // Àû°úÀÇ °Å¸®¿¡ µû¶ó Çàµ¿ °áÁ¤
+        // ì ê³¼ì˜ ê±°ë¦¬ì— ë”°ë¼ í–‰ë™ ê²°ì •
         if (distance > attackRange)
         {
-            // »ç°Å¸® ¹ÛÀÌ¸é Á¢±Ù
+            // ì‚¬ê±°ë¦¬ ë°–ì´ë©´ ì ‘ê·¼
             MoveToTarget();
         }
         else if (distance < attackRange * 0.8f)
         {
-            // »ç°Å¸® ³»¿¡¼­µµ ³Ê¹« °¡±î¿ì¸é kiting (ÈÄÅğ) ¼öÇà
+            // ì‚¬ê±°ë¦¬ ë‚´ì—ì„œë„ ë„ˆë¬´ ê°€ê¹Œìš°ë©´ kiting (í›„í‡´) ìˆ˜í–‰
             Kiting();
         }
         else
         {
-            // ÀûÀıÇÑ °Å¸®¸é °ø°İ ÀÚ¼¼ À¯Áö
+            // ì ì ˆí•œ ê±°ë¦¬ë©´ ê³µê²© ìì„¸ ìœ ì§€
             isMoving = false;
         }
+        SetFlip();
     }
+    private void SetFlip()
+    {
+        if (target != null)
+        {
+            float direction = target.transform.position.x - transform.position.x;
+
+            if (direction < 0) // íƒ€ê²Ÿì´ ì™¼ìª½ì— ìˆì„ ë•Œ
+            {
+                spriteRenderer.flipX = true;
+            }
+            else if (direction > 0) // íƒ€ê²Ÿì´ ì˜¤ë¥¸ìª½ì— ìˆì„ ë•Œ
+            {
+                spriteRenderer.flipX = false;
+            }
+        }
+        else
+        {
+            // ì´ë™ ë°©í–¥ìœ¼ë¡œ Flip ì¡°ì • (ê¸°ì¡´ ë°©ì‹)
+            float moveDirection = transform.position.x - lastPosition.x;
+
+            if (moveDirection < 0) // ì™¼ìª½ ì´ë™
+            {
+                spriteRenderer.flipX = true;
+            }
+            else if (moveDirection > 0) // ì˜¤ë¥¸ìª½ ì´ë™
+            {
+                spriteRenderer.flipX = false;
+            }
+        }
+
+        lastPosition = transform.position; // í˜„ì¬ ìœ„ì¹˜ ì €ì¥
+    }
+
 
     private Vector2 ClampPosition(Vector2 pos)
     {
@@ -58,22 +97,26 @@ public class BattleAI : MonoBehaviour
     {
         if (target != null)
         {
+            Animator animator = GetComponent<Animator>();
             isMoving = true;
             Vector2 newPosition = Vector2.MoveTowards(transform.position, target.transform.position, championManager.championData.movementSpeed * Time.deltaTime);
             newPosition = ClampPosition(newPosition);
             transform.position = newPosition;
+            animator.SetTrigger("isMove"); // ê³µê²© ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
         }
     }
 
-    // Kiting: Àû°úÀÇ °Å¸®¸¦ Ç×»ó °ø°İ »ç°Å¸® ³» ÃÖÀû °Å¸®·Î À¯ÁöÇÏµµ·Ï ÀÌµ¿
+    // Kiting: ì ê³¼ì˜ ê±°ë¦¬ë¥¼ í•­ìƒ ê³µê²© ì‚¬ê±°ë¦¬ ë‚´ ìµœì  ê±°ë¦¬ë¡œ ìœ ì§€í•˜ë„ë¡ ì´ë™
     private void Kiting()
     {
         if (target != null)
         {
+            Animator animator = GetComponent<Animator>();
             isMoving = true;
+            animator.SetTrigger("isMove");
             Vector2 direction = ((Vector2)transform.position - (Vector2)target.transform.position).normalized;
             Vector2 desiredPosition = (Vector2)target.transform.position + direction * championManager.championData.attackRange;
-            // MoveTowards¸¦ »ç¿ëÇØ Á¡ÁøÀûÀ¸·Î ÀÌµ¿ ÈÄ À§Ä¡ Å¬·¥ÇÁ Àû¿ë
+            // MoveTowardsë¥¼ ì‚¬ìš©í•´ ì ì§„ì ìœ¼ë¡œ ì´ë™ í›„ ìœ„ì¹˜ í´ë¨í”„ ì ìš©
             Vector2 newPosition = Vector2.MoveTowards(transform.position, desiredPosition, championManager.championData.movementSpeed * Time.deltaTime);
             newPosition = ClampPosition(newPosition);
             transform.position = newPosition;
@@ -94,6 +137,7 @@ public class BattleAI : MonoBehaviour
             yield return new WaitForSeconds(attackCooldown);
             if (target != null && IsTargetInRange())
             {
+                isMoving = false;
                 AttackTarget();
             }
         }
@@ -103,21 +147,26 @@ public class BattleAI : MonoBehaviour
     {
         if (target != null)
         {
+            SetFlip();
+            Animator animator = GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.SetTrigger("isAttack"); // ê³µê²© ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
+            }
+
             target.GetComponent<ChampionManager>().TakeDamage(championManager.championData.attackPower);
-            Debug.Log($"{championManager.championData.championName}ÀÌ {target.name}À» °ø°İ!");
+            Debug.Log($"{championManager.championData.championName}ì´ {target.name}ì„ ê³µê²©!");
         }
     }
 
-    /// <summary>
-    /// ÁÖº¯ÀÇ Àûµé Áß °¡Àå °¡±î¿î ÀûÀ» ½Ç½Ã°£À¸·Î Å½»öÇÏ¿© Å¸°ÙÀ» ¼³Á¤
-    /// </summary>
+    /// ì£¼ë³€ì˜ ì ë“¤ ì¤‘ ê°€ì¥ ê°€ê¹Œìš´ ì ì„ ì‹¤ì‹œê°„ìœ¼ë¡œ íƒìƒ‰í•˜ì—¬ íƒ€ê²Ÿì„ ì„¤ì •
     public void SetTarget()
     {
         float closestDistance = float.MaxValue;
         GameObject closestEnemy = null;
 
         int myTeam = championManager.teamID;
-        // Å½»ö ¹üÀ§ (ÇÊ¿ä¿¡ µû¶ó °ª Á¶Á¤)
+        // íƒìƒ‰ ë²”ìœ„ (í•„ìš”ì— ë”°ë¼ ê°’ ì¡°ì •)
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 10f);
 
         foreach (var hitCollider in hitColliders)
@@ -135,17 +184,15 @@ public class BattleAI : MonoBehaviour
             }
         }
 
-        // Å¸°ÙÀÌ nullÀÌ°Å³ª »õ·Î¿î ÀûÀÌ ±âÁ¸ Å¸°Ùº¸´Ù ´õ °¡±î¿ï °æ¿ì ¾÷µ¥ÀÌÆ®
+        // íƒ€ê²Ÿì´ nullì´ê±°ë‚˜ ìƒˆë¡œìš´ ì ì´ ê¸°ì¡´ íƒ€ê²Ÿë³´ë‹¤ ë” ê°€ê¹Œìš¸ ê²½ìš° ì—…ë°ì´íŠ¸
         if (closestEnemy != null && closestEnemy != target)
         {
             target = closestEnemy;
-            Debug.Log($"{championManager.championData.championName}°¡ »õ·Î¿î Å¸°ÙÀ¸·Î {target.name}À» ¼³Á¤!");
+            Debug.Log($"{championManager.championData.championName}ê°€ ìƒˆë¡œìš´ íƒ€ê²Ÿìœ¼ë¡œ {target.name}ì„ ì„¤ì •!");
         }
     }
 
-    /// <summary>
-    /// °ø°İ ·çÆ¾ ½ÃÀÛ (ºÎÈ° ÈÄ¿¡µµ Á¤»óÀûÀ¸·Î ÀÛµ¿)
-    /// </summary>
+    /// ê³µê²© ë£¨í‹´ ì‹œì‘ (ë¶€í™œ í›„ì—ë„ ì •ìƒì ìœ¼ë¡œ ì‘ë™)
     public void StartAttackRoutine()
     {
         if (attackCoroutine != null)
@@ -155,7 +202,7 @@ public class BattleAI : MonoBehaviour
         attackCoroutine = StartCoroutine(AttackRoutine());
     }
 
-    // Å¸°Ù Å×½ºÆ® (¾À ºä µğ¹ö±ë¿ë)
+    // íƒ€ê²Ÿ í…ŒìŠ¤íŠ¸ (ì”¬ ë·° ë””ë²„ê¹…ìš©)
     private void OnDrawGizmos()
     {
         if (target != null)
@@ -166,7 +213,7 @@ public class BattleAI : MonoBehaviour
         }
     }
 
-    // °ø°İ »ç°Å¸® Å×½ºÆ® (¾À ºä ¼±ÅÃ ½Ã)
+    // ê³µê²© ì‚¬ê±°ë¦¬ í…ŒìŠ¤íŠ¸ (ì”¬ ë·° ì„ íƒ ì‹œ)
     private void OnDrawGizmosSelected()
     {
         if (championManager != null && championManager.championData != null)

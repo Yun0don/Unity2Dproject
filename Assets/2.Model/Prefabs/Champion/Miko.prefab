@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1387236905315067605}
   - component: {fileID: 3358178177539106855}
   - component: {fileID: 313988308563621795}
+  - component: {fileID: -3914462016679937299}
   m_Layer: 0
   m_Name: Miko
   m_TagString: Player
@@ -161,3 +162,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   championManager: {fileID: 3358178177539106855}
   target: {fileID: 0}
+--- !u!95 &-3914462016679937299
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212032002112034420}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 0b6e317fc096b5d409e203bac02d9a26, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

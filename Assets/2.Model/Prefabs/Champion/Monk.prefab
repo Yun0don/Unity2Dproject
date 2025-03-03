@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2809729292862609763}
   - component: {fileID: 2697567938426127495}
   - component: {fileID: 3511093134212329775}
+  - component: {fileID: 1037482176499293253}
   m_Layer: 0
   m_Name: Monk
   m_TagString: Player
@@ -161,3 +162,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   championManager: {fileID: 2697567938426127495}
   target: {fileID: 0}
+--- !u!95 &1037482176499293253
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140655609877858122}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 8b09f15e144c48947b6f2e7c4945699e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

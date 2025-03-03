@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1199537466759620605}
   - component: {fileID: 3077699228419691619}
   - component: {fileID: 3780051929832857356}
+  - component: {fileID: -2789259856337250556}
   m_Layer: 0
   m_Name: Kngiht
   m_TagString: Player
@@ -161,3 +162,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   championManager: {fileID: 3077699228419691619}
   target: {fileID: 0}
+--- !u!95 &-2789259856337250556
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784992311254550517}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 24e910ef9ce4ded40aba1ad0f6f95cb5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

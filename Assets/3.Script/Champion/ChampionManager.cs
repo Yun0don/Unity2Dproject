@@ -61,12 +61,10 @@ public class ChampionManager : MonoBehaviour
         {
             if (battleManager.isGoldenKill && !battleManager.isBattleFinished)
             {
-                // 골든 킬 모드 상태에서 첫 킬 발생 → 최종 승리 확정
                 battleManager.EndBattleGoldenKill();
             }
             else
             {
-                // 일반 상황이면 UI 갱신
                 battleManager.UpdateScoreUI();
             }
         }

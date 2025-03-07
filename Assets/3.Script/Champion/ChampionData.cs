@@ -18,9 +18,7 @@ public class ChampionSkill
     public float ultset;
 }
 
-/// <summary>
 /// 챔피언 데이터 (ScriptableObject)
-/// </summary>
 [CreateAssetMenu(fileName = "NewChampion", menuName = "Champion/Create New Champion")]
 public class ChampionData : ScriptableObject
 {

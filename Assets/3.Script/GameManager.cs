@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ¿¹: ÃÖ´ë 2¼±½Â
     public bool IsMatchOver()
     {
         return (blueTeamWins >= 2 || redTeamWins >= 2);

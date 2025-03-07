@@ -17,7 +17,7 @@ public class BattleManager : MonoBehaviour
     public GameObject endPanel;
     public GameObject resultPanel;
 
-    private float battleDuration = 10f; // 기본 60초 테스트중
+    private float battleDuration = 60f;
     private float startTime;
 
     public List<GameObject> championPrefabs; // 각 챔피언의 프리팹 리스트
@@ -28,8 +28,8 @@ public class BattleManager : MonoBehaviour
 
     private List<ChampionData> pickedChampions = new List<ChampionData>(); // 전투 참가 챔피언 목록
 
-    [HideInInspector] public bool isBattleFinished = false; // 전투 완전 종료 여부
-    [HideInInspector] public bool isGoldenKill = false;     // 골든 킬 모드 여부
+    [HideInInspector] public bool isBattleFinished = false;
+    [HideInInspector] public bool isGoldenKill = false;    
 
     private void Awake()
     {
@@ -71,17 +71,12 @@ public class BattleManager : MonoBehaviour
         {
             pickedChampions = banPickData.GetPickedChampions();
         }
-        else
-        {
-            Debug.LogError("BanPickData를 찾을 수 없습니다!");
-        }
     }
 
     private void InitializeTeams()
     {
         if (pickedChampions == null || pickedChampions.Count < 4)
         {
-            Debug.LogError("전투를 시작할 챔피언이 충분하지 않습니다!");
             return;
         }
 
@@ -114,9 +109,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    /// <summary>
     /// 특정 스폰 영역 내에서 랜덤한 위치를 가져오는 함수
-    /// </summary>
     private Vector2 GetRandomPositionInArea(Transform spawnArea)
     {
         BoxCollider2D collider = spawnArea.GetComponent<BoxCollider2D>();

@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+
+    public int blueTeamWins = 0;
+    public int redTeamWins = 0;
+
 
     private void Awake()
     {
@@ -17,6 +18,43 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+    public void AddWin(int winningTeamID)
+    {
+        if (winningTeamID == 1)
+        {
+            blueTeamWins++;
+        }
+        else if (winningTeamID == 2)
+        {
+            redTeamWins++;
+        }
+    }
+
+    // ¿¹: ÃÖ´ë 2¼±½Â
+    public bool IsMatchOver()
+    {
+        return (blueTeamWins >= 2 || redTeamWins >= 2);
+    }
+    public int GetWinningTeam()
+    {
+        if (blueTeamWins >= 2) return 1;
+        if (redTeamWins >= 2) return 2;
+        return 0; 
+    }
+     public void ResetMatchScore()
+     {
+         blueTeamWins = 0;
+         redTeamWins = 0;
+     }
+
+    public void DisableAllBattleAI()
+    {
+        BattleAI[] allAIs = FindObjectsOfType<BattleAI>();
+        foreach (BattleAI ai in allAIs)
+        {
+            ai.enabled = false;
         }
     }
 }

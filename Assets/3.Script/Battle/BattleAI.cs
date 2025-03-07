@@ -8,25 +8,24 @@ public class BattleAI : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private float attackCooldown;
-    private bool isMoving = false; // 이동 상태 여부 (애니메이션 제어용)
-    private Coroutine attackCoroutine; // 공격 코루틴
+    private bool isMoving = false; 
+    private Coroutine attackCoroutine; 
     private Vector2 lastPosition; //  이전 프레임 위치 저장
 
     private void Start()
     {
         attackCooldown = 1f / championManager.championData.attackSpeed;
-        StartAttackRoutine(); // 공격 루틴 자동 시작
+        StartAttackRoutine(); 
 
-        spriteRenderer = GetComponent<SpriteRenderer>(); // 스프라이트 렌더러 가져오기
-        lastPosition = transform.position; // 초기 위치 저장
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
+        lastPosition = transform.position;
     }
 
     private void Update()
     {
-        // 매 프레임마다 타겟 갱신: 이미 타겟이 있어도 주변에서 더 가까운 적이 있는지 확인
         SetTarget();
 
-        if (target == null || !target.activeInHierarchy)
+        if (target == null || !target.activeInHierarchy) // ?
         {
             return;
         }
@@ -34,20 +33,16 @@ public class BattleAI : MonoBehaviour
         float distance = Vector2.Distance(transform.position, target.transform.position);
         float attackRange = championManager.championData.attackRange;
 
-        // 적과의 거리에 따라 행동 결정
         if (distance > attackRange)
         {
-            // 사거리 밖이면 접근
             MoveToTarget();
         }
         else if (distance < attackRange * 0.8f)
         {
-            // 사거리 내에서도 너무 가까우면 kiting (후퇴) 수행
             Kiting();
         }
         else
         {
-            // 적절한 거리면 공격 자세 유지
             isMoving = false;
         }
         SetFlip();
@@ -58,18 +53,17 @@ public class BattleAI : MonoBehaviour
         {
             float direction = target.transform.position.x - transform.position.x;
 
-            if (direction < 0) // 타겟이 왼쪽에 있을 때
+            if (direction < 0)
             {
                 spriteRenderer.flipX = true;
             }
-            else if (direction > 0) // 타겟이 오른쪽에 있을 때
+            else if (direction > 0) 
             {
                 spriteRenderer.flipX = false;
             }
         }
         else
         {
-            // 이동 방향으로 Flip 조정 (기존 방식)
             float moveDirection = transform.position.x - lastPosition.x;
 
             if (moveDirection < 0) // 왼쪽 이동
@@ -82,7 +76,7 @@ public class BattleAI : MonoBehaviour
             }
         }
 
-        lastPosition = transform.position; // 현재 위치 저장
+        lastPosition = transform.position; 
     }
 
 
@@ -99,14 +93,15 @@ public class BattleAI : MonoBehaviour
         {
             Animator animator = GetComponent<Animator>();
             isMoving = true;
-            Vector2 newPosition = Vector2.MoveTowards(transform.position, target.transform.position, championManager.championData.movementSpeed * Time.deltaTime);
+            Vector2 newPosition = Vector2.MoveTowards(transform.position,
+                target.transform.position, championManager.championData.movementSpeed * Time.deltaTime);
+            // 경기장 제한 코드
             newPosition = ClampPosition(newPosition);
             transform.position = newPosition;
-            animator.SetTrigger("isMove"); // 공격 애니메이션 실행
+            animator.SetTrigger("isMove");
         }
     }
 
-    // Kiting: 적과의 거리를 항상 공격 사거리 내 최적 거리로 유지하도록 이동
     private void Kiting()
     {
         if (target != null)
@@ -114,22 +109,15 @@ public class BattleAI : MonoBehaviour
             Animator animator = GetComponent<Animator>();
             isMoving = true;
             animator.SetTrigger("isMove");
-            Vector2 direction = ((Vector2)transform.position - (Vector2)target.transform.position).normalized;
+            // 후퇴방향, 후퇴지점, 이동~
+            Vector2 direction = ((Vector2)transform.position - (Vector2)target.transform.position).normalized; 
             Vector2 desiredPosition = (Vector2)target.transform.position + direction * championManager.championData.attackRange;
-            // MoveTowards를 사용해 점진적으로 이동 후 위치 클램프 적용
             Vector2 newPosition = Vector2.MoveTowards(transform.position, desiredPosition, championManager.championData.movementSpeed * Time.deltaTime);
+            // 경기장 제한 코드
             newPosition = ClampPosition(newPosition);
             transform.position = newPosition;
         }
     }
-
-    private bool IsTargetInRange()
-    {
-        if (target == null) return false;
-        float distance = Vector2.Distance(transform.position, target.transform.position);
-        return distance <= championManager.championData.attackRange;
-    }
-
     private IEnumerator AttackRoutine()
     {
         while (true)
@@ -142,8 +130,7 @@ public class BattleAI : MonoBehaviour
             }
         }
     }
-
-    private void AttackTarget()
+    protected virtual void AttackTarget()
     {
         if (target != null)
         {
@@ -155,18 +142,21 @@ public class BattleAI : MonoBehaviour
             }
 
             target.GetComponent<ChampionManager>().TakeDamage(championManager.championData.attackPower);
-            Debug.Log($"{championManager.championData.championName}이 {target.name}을 공격!");
         }
     }
-
-    /// 주변의 적들 중 가장 가까운 적을 실시간으로 탐색하여 타겟을 설정
+    private bool IsTargetInRange()
+    {
+        if (target == null) return false;
+        float distance = Vector2.Distance(transform.position, target.transform.position);
+        return distance <= championManager.championData.attackRange;
+    }
     public void SetTarget()
     {
         float closestDistance = float.MaxValue;
         GameObject closestEnemy = null;
 
         int myTeam = championManager.teamID;
-        // 탐색 범위 (필요에 따라 값 조정)
+
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 10f);
 
         foreach (var hitCollider in hitColliders)
@@ -183,12 +173,9 @@ public class BattleAI : MonoBehaviour
                 }
             }
         }
-
-        // 타겟이 null이거나 새로운 적이 기존 타겟보다 더 가까울 경우 업데이트
         if (closestEnemy != null && closestEnemy != target)
         {
             target = closestEnemy;
-            Debug.Log($"{championManager.championData.championName}가 새로운 타겟으로 {target.name}을 설정!");
         }
     }
 
@@ -200,26 +187,5 @@ public class BattleAI : MonoBehaviour
             StopCoroutine(attackCoroutine);
         }
         attackCoroutine = StartCoroutine(AttackRoutine());
-    }
-
-    // 타겟 테스트 (씬 뷰 디버깅용)
-    private void OnDrawGizmos()
-    {
-        if (target != null)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(transform.position, target.transform.position);
-            Gizmos.DrawWireSphere(target.transform.position, 0.5f);
-        }
-    }
-
-    // 공격 사거리 테스트 (씬 뷰 선택 시)
-    private void OnDrawGizmosSelected()
-    {
-        if (championManager != null && championManager.championData != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, championManager.championData.attackRange);
-        }
     }
 }

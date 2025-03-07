@@ -19,7 +19,7 @@ MonoBehaviour:
   attackRange: 0.4
   defense: 10
   maxhealth: 120
-  health: 120
+  health: 60.909096
   movementSpeed: 4
   basicSkill:
     skillType: 0

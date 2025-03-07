@@ -13,12 +13,6 @@ public class ChampionAnimation : MonoBehaviour
         battleAI = GetComponent<BattleAI>();
         championManager = GetComponent<ChampionManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        if (animator == null)
-        {
-            Debug.LogWarning($"{gameObject.name}에는 Animator가 없습니다. 애니메이션 실행을 중단합니다.");
-            enabled = false;
-        }
     }
 
     private void Update()
